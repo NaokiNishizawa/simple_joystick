@@ -77,11 +77,15 @@ class _JoyStickState extends State<JoyStick>
       return true;
     }
 
-    void moveStick(Offset offset) {
+    void moveStick(Offset offset, Offset delta) {
       setEndOffset(offset);
       isStickInitPosition = false;
       widget.callback(
-        StickDragDetails(offset.dx, offset.dy),
+        StickDragDetails(
+          offset.dx,
+          offset.dy,
+          delta,
+        ),
       );
       setState(() {});
     }
@@ -91,7 +95,10 @@ class _JoyStickState extends State<JoyStick>
       isStickInitPosition = true;
       widget.callback(
         StickDragDetails(
-            stickInitPositionOffset.dx, stickInitPositionOffset.dy),
+          stickInitPositionOffset.dx,
+          stickInitPositionOffset.dy,
+          Offset.zero,
+        ),
       );
       setState(() {});
     }
@@ -111,10 +118,11 @@ class _JoyStickState extends State<JoyStick>
         Widget content = GestureDetector(
           onPanUpdate: (details) {
             final globalPosition = details.globalPosition;
+            final delta = details.delta;
 
             if (judgmentStickMove(globalPosition)) {
               Offset offset = Offset(globalPosition.dx, globalPosition.dy);
-              moveStick(offset);
+              moveStick(offset, delta);
             }
           },
           onPanEnd: (details) {
@@ -166,15 +174,20 @@ class _JoyStickState extends State<JoyStick>
             ),
           ),
         );
-        Future.delayed(const Duration(milliseconds: 100))
-            .then((value) => init());
+        Future.delayed(const Duration(milliseconds: 100)).then(
+          (value) => {
+            if (isStickInitPosition)
+              {
+                init(),
+              },
+          },
+        );
 
         return content;
       },
     );
   }
 
-  ///　変数などの初期化
   void init() {
     if (isStickInitPosition) {
       joyStickInitPositionOffset = getJoyStickPosition();
