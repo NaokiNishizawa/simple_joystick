@@ -5,9 +5,7 @@ simple joystickは[Flutter](https://flutter.io)のプラグインです。
 (その他の環境については未確認です。)
 
 ## アプリデモ
-<video width="320" height="240" controls>
-  <source src="./app_demo.mp4" type="video/mp4">
-</video>
+https://github.com/NaokiNishizawa/simple_joystick/assets/60878237/9592fae7-8140-444c-bc6d-77399111443a
 
 ## 開始
 
