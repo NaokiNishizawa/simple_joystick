@@ -1,7 +1,7 @@
 name: simple_joystick
 description: A simple joystick package project.
 version: 0.0.1
-homepage:
+homepage: https://github.com/NaokiNishizawa/simple_joystick
 
 environment:
   sdk: '>=3.0.5 <4.0.0'
