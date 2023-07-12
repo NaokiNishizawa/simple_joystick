@@ -7,9 +7,7 @@ Supports iOS, Android.
 (Other environments unconfirmed)
 
 ## App Demo
-<video width="320" height="240" controls>
-  <source src="./materials/app_demo.mp4" type="video/mp4">
-</video>
+https://github.com/NaokiNishizawa/simple_joystick/assets/60878237/4399367d-ca9f-4c0d-96e7-8732f77f9759
 
 ## Getting Started
 
