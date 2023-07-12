@@ -1,19 +1,17 @@
 # simple joystick
 
-[Japanese READEME](./materials/README_JA.md)
+simple joystickは[Flutter](https://flutter.io)のプラグインです。
+サポートはiOS, Android。
+(その他の環境については未確認です。)
 
-simple joystick plugin for [Flutter](https://flutter.io).
-Supports iOS, Android.
-(Other environments unconfirmed)
-
-## App Demo
+## アプリデモ
 <video width="320" height="240" controls>
-  <source src="./materials/app_demo.mp4" type="video/mp4">
+  <source src="./app_demo.mp4" type="video/mp4">
 </video>
 
-## Getting Started
+## 開始
 
-In your flutter project add the dependency:
+dependenciesに本プラグインを追加してください。
 
 ```yml
 dependencies:
@@ -21,13 +19,13 @@ dependencies:
   simple_joystick:
 ```
 
-## Usage example
+## 使用例
 
 ```dart
 import 'package:simple_joystick/simple_joystick.dart';
 ```
 
-## Usage
+## 使用方法
 ```dart
  Column(
     mainAxisAlignment: MainAxisAlignment.center,
@@ -36,20 +34,20 @@ import 'package:simple_joystick/simple_joystick.dart';
             150, // JoyStickAreaSize
             50, // JoyStickStickSize
             (details) {
-                // Please describe what you want to do after the stick move.
+                // ここにstick移動後に行いたいことを記載してください。
             },
         ),
     ],
 ),
 ```
-### CallBack Detail
+### コールバックの詳細
 ```dart
 typedef StickDragCallback = void Function(StickDragDetails details);
 
 class StickDragDetails {
   StickDragDetails(
-    this.x, // Global X coordinate after moving
-    this.y, // Global Y coordinate after moving
+    this.x, // 移動後のグローバル座標のX
+    this.y, // 移動後のグローバル座標のY
     this.alignment,
     this.currentOffset, 
   );
