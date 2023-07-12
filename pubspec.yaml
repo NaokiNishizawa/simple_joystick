@@ -1,6 +1,6 @@
 name: simple_joystick
 description: A simple joystick package project.
-version: 0.0.1
+version: 0.1.0
 homepage: https://github.com/NaokiNishizawa/simple_joystick
 
 environment:
