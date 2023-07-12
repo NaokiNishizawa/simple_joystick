@@ -29,47 +29,19 @@ class MyHomePage extends StatefulWidget {
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
-class _MyHomePageState extends State<MyHomePage>
-    with SingleTickerProviderStateMixin {
-  late AnimationController controller;
-  late Animation<Offset> animation;
-  Offset startOffset = Offset.zero;
-
-  @override
-  void initState() {
-    super.initState();
-
-    controller = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 200),
-    );
-
-    animation = Tween<Offset>(
-      begin: startOffset,
-      end: startOffset,
-    ).animate(controller);
-  }
-
-  @override
-  void dispose() {
-    controller.dispose();
-    super.dispose();
-  }
+class _MyHomePageState extends State<MyHomePage> {
+  Alignment currentAlignment = const Alignment(0, 0);
 
   @override
   Widget build(BuildContext context) {
-    void move(Offset endOffset) {
-      animation = Tween<Offset>(
-        begin: startOffset, // アニメーション開始時のスケール
-        end: endOffset, // アニメーション終了時のスケール
-      ).animate(controller);
-
-      controller.forward();
-      startOffset = endOffset;
+    void move(Alignment alignment) {
+      currentAlignment = alignment;
+      setState(() {});
     }
 
-    final ball = SlideTransition(
-      position: animation,
+    final ball = AnimatedAlign(
+      alignment: currentAlignment,
+      duration: const Duration(milliseconds: 200),
       child: Container(
         width: 20,
         height: 20,
@@ -89,8 +61,7 @@ class _MyHomePageState extends State<MyHomePage>
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Container(
-              margin: const EdgeInsets.all(16),
+            Expanded(
               child: ball,
             ),
             JoyStick(
@@ -98,7 +69,7 @@ class _MyHomePageState extends State<MyHomePage>
               50,
               (details) {
                 // nothing
-                move(details.delta);
+                move(details.alignment);
               },
             ),
           ],

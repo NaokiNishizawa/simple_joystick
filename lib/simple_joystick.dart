@@ -33,7 +33,9 @@ class _JoyStickState extends State<JoyStick>
   GlobalKey parentKey = GlobalKey();
   GlobalKey childKey = GlobalKey();
   Offset stickMovedPositionOffset = Offset.zero;
+  bool isCompleteInit = false;
   bool isStickInitPosition = true;
+  Offset currentOffset = Offset.zero;
 
   late double joyStickSize;
   late double halfSize;
@@ -80,11 +82,13 @@ class _JoyStickState extends State<JoyStick>
     void moveStick(Offset offset, Offset delta) {
       setEndOffset(offset);
       isStickInitPosition = false;
+
       widget.callback(
         StickDragDetails(
           offset.dx,
           offset.dy,
-          delta,
+          Alignment(currentOffset.dx, currentOffset.dy),
+          currentOffset,
         ),
       );
       setState(() {});
@@ -97,7 +101,8 @@ class _JoyStickState extends State<JoyStick>
         StickDragDetails(
           stickInitPositionOffset.dx,
           stickInitPositionOffset.dy,
-          Offset.zero,
+          Alignment(currentOffset.dx, currentOffset.dy),
+          currentOffset,
         ),
       );
       setState(() {});
@@ -176,7 +181,7 @@ class _JoyStickState extends State<JoyStick>
         );
         Future.delayed(const Duration(milliseconds: 100)).then(
           (value) => {
-            if (isStickInitPosition)
+            if (!isCompleteInit)
               {
                 init(),
               },
@@ -202,6 +207,7 @@ class _JoyStickState extends State<JoyStick>
           joyStickInitPositionOffset.dy + halfSize);
 
       setEndOffset(stickInitPositionOffset);
+      isCompleteInit = true;
     }
   }
 
@@ -223,6 +229,8 @@ class _JoyStickState extends State<JoyStick>
     Offset endOffset = calculationMoveOffset(currentStickPositionOffset);
 
     tween = Tween(begin: stickMovedPositionOffset, end: endOffset);
+
+    currentOffset = endOffset;
 
     stickMovedPositionOffset = endOffset;
   }
